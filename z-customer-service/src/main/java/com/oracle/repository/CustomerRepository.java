@@ -2,6 +2,8 @@ package com.oracle.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerRepository extends JpaRepository<T, ID>{
+import com.oracle.entity.Customer;
+
+public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
 }
