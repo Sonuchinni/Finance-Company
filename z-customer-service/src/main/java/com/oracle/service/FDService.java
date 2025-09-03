@@ -18,69 +18,6 @@ import com.oracle.repository.FixedDepositAccountRepository;
 
 @Service
 public class FDService {
-
-//	@Autowired
-//    private CustomerRepository customerRepo;
-//
-//    @Autowired
-//    private FixedDepositAccountRepository fdRepo;
-//
-//    @Autowired
-//    private FDTransactionRepository txnRepo;
-//
-//    
-//    public FixedDepositAccount createFD(Long custId, Double amount, int tenureMonths) {
-//        Customer customer = customerRepo.findById(custId)
-//                .orElseThrow(() -> new RuntimeException("Customer not found"));
-//
-//        if (customer.getStatus() != AccountStatus.APPROVED) {
-//            throw new RuntimeException("Customer must be approved before opening FD.");
-//        }
-//        if (customer.getFdAccount() != null) {
-//            throw new RuntimeException("Customer already has an FD account.");
-//        }
-//
-//        FixedDepositAccount fd = new FixedDepositAccount();
-//        fd.setAmount(amount);
-//        fd.setTenureMonths(tenureMonths);
-//        fd.setStatus(AccountStatus.PENDING);
-//        fd.setCustomer(customer);
-//
-//        FixedDepositAccount savedFD = fdRepo.save(fd);
-//
-//        FDTransaction txn = new FDTransaction();
-//        txn.setType("DEPOSIT");
-//        txn.setAmount(amount);
-//        txn.setFdAccount(savedFD);
-//        txnRepo.save(txn);
-//
-//        return savedFD;
-//    }
-//
-//    
-//    public FDTransaction closeFD(Long fdId) {
-//        FixedDepositAccount fd = fdRepo.findById(fdId)
-//                .orElseThrow(() -> new RuntimeException("FD account not found"));
-//
-//        FDTransaction txn = new FDTransaction();
-//        txn.setType("CLOSURE");
-//        txn.setAmount(fd.getAmount());
-//        txn.setFdAccount(fd);
-//        txnRepo.save(txn);
-//
-//        fd.setStatus(AccountStatus.REJECTED); // mark as closed
-//        fdRepo.save(fd);
-//
-//        return txn;
-//    }
-//
-//    // Approve/Reject FD
-//    public Optional<FixedDepositAccount> updateFDStatus(Long fdId, AccountStatus status) {
-//        FixedDepositAccount fd = fdRepo.findById(fdId)
-//                .orElseThrow(() -> new RuntimeException("FD account not found"));
-//        fd.setStatus(status);
-//        return Optional.of(fdRepo.save(fd));
-//    }
 	
 	
 	@Autowired
@@ -166,9 +103,14 @@ public class FDService {
         return fdTxnRepo.save(txn);
     }
 
-    // Get all FDs by customer
-    public List<FixedDepositAccount> getFDsByCustomer(Long custId) {
-        return fdRepo.findByCustId(custId);
+//    // Get all FDs by customer
+//    public List<FixedDepositAccount> getFDsByCustomer(Long custId) {
+//        return fdRepo.findByCustId(custId);
+//    }
+    
+    public FixedDepositAccount getFDsByCustomer(Long custId) {
+        return fdRepo.findByCustId(custId)
+                .orElseThrow(() -> new RuntimeException("FD account not found for customer " + custId));
     }
     
  //  Extend FD
@@ -190,5 +132,18 @@ public class FDService {
         fdTxnRepo.save(txn);
 
         return "FD tenure extended by " + extraMonths + " months.";
+    }
+    
+    // Deduct amount from FD account
+    public FixedDepositAccount deductFromFd(Long custId, Double amount) {
+        FixedDepositAccount fd = fdRepo.findByCustId(custId)
+                .orElseThrow(() -> new RuntimeException("FD account not found for customer " + custId));
+
+        if (fd.getAmount() < amount) {
+            throw new RuntimeException("Insufficient FD balance. Required: " + amount + ", Available: " + fd.getAmount());
+        }
+
+        fd.setAmount(fd.getAmount() - amount);
+        return fdRepo.save(fd);
     }
 }

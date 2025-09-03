@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oracle.SavingsAccountDTO;
+import com.oracle.dto.SavingsAccountDTO;
 import com.oracle.entity.AccountStatus;
 import com.oracle.entity.SavingsAccount;
 import com.oracle.entity.SavingsTransaction;

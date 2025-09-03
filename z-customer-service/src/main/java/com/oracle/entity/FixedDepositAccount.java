@@ -32,10 +32,4 @@ public class FixedDepositAccount {
     @JoinColumn(name = "fd_id") 
     private List<FDTransaction> transactions;
     
-//    @OneToOne
-//    @JoinColumn(name = "cust_id", unique = true)
-//    private Customer customer;
-    
-//    @OneToMany(mappedBy = "fdAccount", cascade = CascadeType.ALL)
-//    private List<FDTransaction> transactions;
 }

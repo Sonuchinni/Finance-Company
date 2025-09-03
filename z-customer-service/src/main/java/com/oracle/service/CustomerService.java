@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.oracle.CustomerDTO;
+import com.oracle.dto.CustomerDTO;
 import com.oracle.entity.AccountStatus;
 import com.oracle.entity.Customer;
 import com.oracle.repository.CustomerRepository;

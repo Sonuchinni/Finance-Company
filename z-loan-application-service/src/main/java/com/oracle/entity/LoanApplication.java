@@ -33,6 +33,8 @@ public class LoanApplication {
     private LoanStatus status = LoanStatus.SUBMITTED;
     
     private String rejectionReason; 
+    private Double loanAmount;      // requested loan amount
+    private Integer tenureMonths;
 
     // Common docs (simple strings, not uploads)
     private String propertyDocs;    //sale agreement, builder NOC, allotment letter, title deed, etc.

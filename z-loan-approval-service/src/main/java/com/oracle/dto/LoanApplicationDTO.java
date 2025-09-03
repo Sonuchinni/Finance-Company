@@ -17,7 +17,9 @@ public class LoanApplicationDTO {
     private String documents;  // simple string (comma-separated)
     private String status;     // SUBMITTED / IN_REVIEW / APPROVED / REJECTED
     private Long assignedAgentId;
-    
+    private Double loanAmount;   
+    private String rejectionReason;// NEW
+    private Integer tenureMonths; 
     
  // Common docs (simple strings, not uploads)
     private String propertyDocs;    //sale agreement, builder NOC, allotment letter, title deed, etc.

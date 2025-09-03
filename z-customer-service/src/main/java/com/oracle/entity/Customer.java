@@ -67,9 +67,6 @@ public class Customer {
 	    private AccountStatus Status = AccountStatus.PENDING;
 	    
 	    
-//	    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-//	    private SavingsAccount savingsAccount;
-	    
 	    @OneToOne
 	    @JoinColumn(name = "savingsId", referencedColumnName = "savingsId")
 	    private SavingsAccount savingsAccount;
@@ -78,7 +75,5 @@ public class Customer {
 	    @JoinColumn(name = "fdId", referencedColumnName = "fdId")
 	    private FixedDepositAccount fdAccount;
 
-//	    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-//	    private FixedDepositAccount fdAccount;
 
 }

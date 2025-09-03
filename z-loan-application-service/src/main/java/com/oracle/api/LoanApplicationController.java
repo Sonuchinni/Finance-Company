@@ -3,6 +3,7 @@ package com.oracle.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,17 @@ public class LoanApplicationController {
         return service.applyLoan(custId, loan);
     }
     
+ // Added a GET method to retrieve a loan application by ID
+    @GetMapping("/{loanId}")
+    public ResponseEntity<LoanApplication> getApplicationById(@PathVariable("loanId") Long loanId) {
+        LoanApplication loanApplication = service.getApplication(loanId);
+        if (loanApplication != null) {
+            return ResponseEntity.ok(loanApplication);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
  // Agent fetches pending applications
     @GetMapping("/agent/{agentId}/pending")
     public List<LoanApplication> getPending(@PathVariable Long agentId) {
@@ -45,8 +57,8 @@ public class LoanApplicationController {
     }
 
     // Get a specific loan application
-    @GetMapping("/{loanId}")
-    public LoanApplication getById(@PathVariable Long loanId) {
-        return service.getApplication(loanId);
-    }
+//    @GetMapping("/{loanId}")
+//    public LoanApplication getById(@PathVariable Long loanId) {
+//        return service.getApplication(loanId);
+//    }
 }

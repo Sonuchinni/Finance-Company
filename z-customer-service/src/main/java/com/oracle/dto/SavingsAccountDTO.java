@@ -1,4 +1,4 @@
-package com.oracle;
+package com.oracle.dto;
 
 import com.oracle.entity.AccountStatus;
 

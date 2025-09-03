@@ -17,6 +17,8 @@ public class LoanApplicationDTO {
     private String status;
     private Long assignedAgentId;
     private String rejectionReason;
+    private Double loanAmount;      // requested loan amount
+    private Integer tenureMonths;
 
     // docs (keep it simple)
     private String propertyDocs;
